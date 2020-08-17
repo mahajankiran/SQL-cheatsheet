@@ -1,0 +1,95 @@
+USE sql_store ---> To select a database  
+
+_______***SELECT Clause****______________
+
+SELECT *  FROM customers --->Select all rows from customers table
+
+SELECT *  FROM customers WHERE customer_id=1 --->Select all rows from customers table where customer id is 1
+
+SELECT *  FROM customers ORDER BY first_name--->Select all rows from customers table and order them by their first name
+
+SELECT first_name,last_name, points --> If you want to select only first_name and last_name from the tables
+FROM customers ;
+
+
+SELECT 
+	first_name,
+	last_name,
+    points,
+    points+10 as 'discount_factor'
+    FROM customers
+
+
+    SELECT  DISTINCT state FROM customers--->To remmove duplicate from customers table in state column
+
+
+    _______***WHERE Clause(To filter data)****______________
+
+    SELECT * from customers WHERE state = 'VA' --->Select all customers from from customer table where their state is "VA"
+
+    SELECT * from customers WHERE birth_date > '1990-01-01' --->If we want to check birthdate then we still use string for bday to compare
+
+    SELECT * 
+    FROM customers 
+    WHERE birth_date > '1990-01-01' AND points>1000; --->Use mutliple conditions to filter the data in the  table
+
+
+
+    SELECT * 
+    FROM customers 
+    WHERE state= 'VA' OR state = 'FL' OR state = 'GA';
+                 |
+                 |
+    Alternate for above OR condition
+    SELECT * 
+    FROM customers 
+    WHERE state IN( 'VA' ,'FL' ,'GA');
+
+
+        SELECT *   ---To select customer whose age is greter than 1990-01-01 and less than 2000-01-01
+    FROM customers 
+    WHERE birth_date BETWEEN '1990-01-01' AND '2000-01-01';
+
+    
+    ----LIKE OPERATOR-----
+
+    SELECT * 
+	FROM customers
+    WHERE last_name LIKE  'b%'---->Select all the customers whose name starts with b
+
+    SELECT * 
+	FROM customers
+    WHERE last_name LIKE  '%b%'---->Select all the customers whose name contains b
+
+
+    SELECT * 
+	FROM customers
+    WHERE last_name LIKE  '%y'---->Select all the customers whose name ends with y
+
+
+    SELECT * 
+	FROM customers
+    WHERE (address  LIKE   '%TRAIL%' OR address LIKE'%AVENUE%') -->All the customer where address contains trail or like in the address
+
+
+    ---***REGEXP****---
+
+
+
+
+
+    _____ORDER BY-----
+    SELECT * FROM customers ORDER BY last_name -->>asec order
+    SELECT * FROM customers ORDER BY last_name DESC -->>desc order
+    SELECT * FROM customers ORDER BY state,first_name   -->>Sort customers according to state but if states are same then order by first_name
+
+
+SELECT *,quantity*unit_price as total_price --->select all orders and order them in descendng order by the quantity and unit price I.e total price
+FROM order_items 
+WHERE order_id=2 
+ORDER BY total_price DESC
+
+
+----LIMIT OPERATOR------
+SELECT * FROM customers LIMIT 3 ---This will return only firts 3 customers
+SELECT * FROM customers LIMIT 6,3 ---This will skip first 6 records and then give 3 records after that 6 records
